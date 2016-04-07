@@ -1,0 +1,8 @@
+---
+- hosts: '{{ hosts | default("all") }}'
+  sudo: '{{ sudo | default("no") }}'
+  user: '{{ user | default("root") }}'
+  roles:
+    - common
+    - { role: cockpit, when: enable_cockpit is defined }
+    - { role: jenkins-slave, when: enable_jenkins_slave is defined }
