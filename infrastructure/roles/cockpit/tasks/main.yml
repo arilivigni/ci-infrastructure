@@ -1,0 +1,2 @@
+---
+- include: setup_cockpit_tf.yml

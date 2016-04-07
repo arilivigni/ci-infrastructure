@@ -1,0 +1,5 @@
+---
+- name: Install necessary repo files to /etc/yum.repos.d
+  synchronize: src={{ item }}.repo dest=/etc/yum.repos.d
+  with_items: "{{ repos }}"
+

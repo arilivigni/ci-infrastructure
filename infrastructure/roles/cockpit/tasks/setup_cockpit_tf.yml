@@ -1,0 +1,17 @@
+---
+- name: Install packages for cockpit
+  dnf: name={{ item }} state=present
+  with_items: "{{ cockpit_yum_pkgs }}"
+
+- name: Install phantomjs npm package
+  shell: npm -g update phantomjs-prebuilt
+
+- name: Start and enable libvirtd service
+  service: name=libvirtd state=started enabled=yes
+
+- name: Git clone cockpit repo
+  git: repo={{ cockpit_repo }}
+       dest=~/cockpit
+
+- name: Setup for nested vms run vm-prep
+  shell: pushd cockpit/test; ./vm-prep

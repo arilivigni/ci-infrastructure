@@ -1,0 +1,22 @@
+---
+#- name: Install packages using yum
+#  yum: name={{ item }} state=present
+#  with_items: "{{ yum_pkgs }}"
+#  when: ansible_distribution != 'Fedora'
+- name: Install dnf and python-dnf using yum
+  yum: name=dnf,python-dnf state=present
+  with_items: "{{ yum_pkgs }}"
+  when: ansible_distribution != 'Fedora'
+
+- name: Install pre-requesites for dnf support for Fedora
+  raw: dnf install -y --allowerasing python-dnf
+  when: ansible_distribution == 'Fedora'
+
+- name: Install required packages using dnf instead of yum
+  dnf: name={{ item }} state=present
+  with_items: "{{ yum_pkgs }}"
+#  when: ansible_distribution == 'Fedora'
+
+- name: Install pip packages
+  pip: name="{{ item.name }}" version="{{ item.ver }}" state=present
+  with_items: "{{ pip_pkgs }}"

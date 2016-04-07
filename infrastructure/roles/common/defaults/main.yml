@@ -1,0 +1,27 @@
+---
+# default/main.yml
+repos:
+ - epel7
+
+yum_pkgs:
+  - python-novaclient
+  - python-glanceclient
+  - python-keystoneclient
+  - python-neutronclient
+  - python2-crypto
+  - nfs-utils
+  - rpcbind
+  - git
+  - python-pip
+  - python-click
+  - python2-mock
+  - python-nose
+  - python-requests
+  - python-netaddr
+  - mlocate
+  - ruby
+
+pip_pkgs:
+  - { name: 'jenkins_job_builder', ver: '1.4.0' }
+  - { name: 'ansible', ver: '1.9.5' }
+  - { name: python-foreman, ver: '0.1.2' }

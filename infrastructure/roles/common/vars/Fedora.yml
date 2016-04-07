@@ -1,0 +1,5 @@
+---
+# Fedora specific repos
+repos:
+  - beaker-client-Fedora
+  - epel7

@@ -1,0 +1,5 @@
+[centos7-RDO7]
+name=Centos7 RDO repo
+baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-kilo/
+enabled=1
+gpgcheck=0

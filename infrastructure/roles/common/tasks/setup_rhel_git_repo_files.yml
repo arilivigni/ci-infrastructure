@@ -1,0 +1,3 @@
+---
+- name: Setup RHEL files from the git repo provided
+  debug: msg="Get the files from the repo to setup a RHEL system"

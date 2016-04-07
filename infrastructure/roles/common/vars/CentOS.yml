@@ -1,0 +1,9 @@
+---
+# Centos specific repos
+repos:
+  - beaker-client-CentOS
+  - centos7
+  - centos7-extras
+  - centos7-updates
+  - centos7-RDO7
+  - epel7
