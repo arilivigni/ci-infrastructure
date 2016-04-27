@@ -11,14 +11,14 @@
   get_url: "url={{ jswarm_url }}/{{ jswarm_ver }}/swarm-client-{{ jswarm_ver }}-jar-with-dependencies.jar dest={{ jswarm_jar_loc }} mode=777"
 
 - name: Clean /etc/rc.local of any previous jenkins slave setup
-  lineinfile: "dest=/tmp/test regexp='^su --login jenkins.*|nohup /usr/bin/java.*' state=absent"
+  lineinfile: "dest=/etc/rc.local regexp='^su --login jenkins.*|nohup /usr/bin/java.*' state=absent"
 
 - name: Add swarm to /etc/rc.local for startup as jenkins user
-  lineinfile: "dest=/tmp/test line='{{ jenkins_user_command_pre }} \"{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}\"' state=present"
+  lineinfile: "dest=/etc/rc.local line='{{ jenkins_user_command_pre }} \"{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}\"' state=present"
   when: jenkins_user
 
 - name: Add swarm to /etc/rc.local for startup as root user
-  lineinfile: "dest=/tmp/test line='{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}' state=present"
+  lineinfile: "dest=/etc/rc.local line='{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}' state=present"
   when: not jenkins_user
 
 - name: Check if slave is running and register
