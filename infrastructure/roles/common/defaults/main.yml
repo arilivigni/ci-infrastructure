@@ -1,27 +1,41 @@
 ---
-# default/main.yml
+# common/defaults/main.yml
 repos:
  - epel7
 
 yum_pkgs:
+  - python-click
+  - python2-crypto
+  - python-devel
+  - python-flake8
+  - python-futures
+  - python-httplib2
+  - python-paramiko
+  - python-pbr
+  - python2-mock
+  - python-nose
+  - python-unittest2
+  - python-requests
+  - python-netaddr
+  - python-pip
   - python-novaclient
   - python-glanceclient
   - python-keystoneclient
   - python-neutronclient
-  - python2-crypto
+  - curl
+  - gcc
+  - ImageMagick-devel
+  - krb5-workstation
   - nfs-utils
   - rpcbind
+  - gcc
   - git
-  - python-pip
-  - python-click
-  - python2-mock
-  - python-nose
-  - python-requests
-  - python-netaddr
   - mlocate
   - ruby
+  - rsync
+  - wget
 
 pip_pkgs:
   - { name: 'jenkins_job_builder', ver: '1.4.0' }
   - { name: 'ansible', ver: '1.9.5' }
-  - { name: python-foreman, ver: '0.1.2' }
+  - { name: 'python-foreman', ver: '0.1.2' }

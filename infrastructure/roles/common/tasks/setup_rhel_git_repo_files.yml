@@ -1,3 +1,26 @@
 ---
 - name: Setup RHEL files from the git repo provided
-  debug: msg="Get the files from the repo to setup a RHEL system"
+  git: repo={{ rhel_git_repo }}
+       dest=/tmp/rhel-infra
+  delegate_to: localhost
+
+- name: Copy necessary Red Hat vars
+  copy:
+    src=/tmp/rhel-infra/project/playbooks/infrastructure/roles/common/vars/RedHat.yml
+    dest={{ playbook_dir }}/roles/common/vars/RedHat.yml
+  delegate_to: localhost
+
+- include_vars: RedHat.yml
+  when: ansible_distribution == 'RedHat'
+
+- name: Copy necessary internal repo files
+  copy:
+    src=/tmp/rhel-infra/project/playbooks/infrastructure/roles/common/files/{{ item }}.repo
+    dest={{ playbook_dir }}/roles/common/files/
+    force=no
+  with_items: "{{ repos }}"
+  delegate_to: localhost
+
+- name: Remove /tmp/rhel-infra files
+  command: rm -rf /tmp/rhel-infra
+  delegate_to: localhost

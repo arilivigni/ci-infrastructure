@@ -1,5 +1,5 @@
 ---
-# defaults/main.yml
+# cockpit/defaults/main.yml
 cockpit_yum_pkgs:
     - npm
     - python-libguestfs

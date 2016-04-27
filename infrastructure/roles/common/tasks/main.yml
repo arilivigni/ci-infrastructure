@@ -8,9 +8,6 @@
 - include_vars: CentOS.yml
   when: ansible_distribution == 'CentOS'
 
-- include_vars: RedHat.yml
-  when: ansible_distribution == 'RedHat'
-
 - include: setup_rhel_git_repo_files.yml
   when: (ansible_distribution == 'RedHat' and rhel_git_repo is defined)
 

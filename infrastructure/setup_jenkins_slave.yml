@@ -4,5 +4,4 @@
   user: '{{ user | default("root") }}'
   roles:
     - common
-    - { role: cockpit, when: enable_cockpit is defined }
-    - { role: jenkins_slave, when: enable_jenkins_slave is defined }
+    - jenkins_slave
