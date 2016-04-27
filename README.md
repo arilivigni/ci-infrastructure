@@ -95,18 +95,24 @@ infrastructure/roles/jenkins_slave/defaults/main.yml
 ###### Example 1:
 
 ```
-ansible-playbook -i /home/test_user/ansible_inventory.txt --private-key=/home/test-user/keys/ci-factory ci-infrastructure/infrastructure/setup.yml -u root --extra-vars="enable_cockpit=true"
+ansible-playbook -i /home/test_user/ansible_inventory.txt \
+--private-key=/home/test-user/keys/ci-factory ci-infrastructure/infrastructure/setup.yml \
+-u root --extra-vars="enable_cockpit=true"
 ```
 
 
 ###### Example 2:
 
 ```
-ansible-playbook -i /home/test_user/ansible_inventory.txt --private-key=/home/test-user/keys/ci-factory ci-infrastructure/infrastructure/setup_jenkins_slave.yml -u root --extra-vars="jenkins_master_url=http://banshee.bos.redhat.com/ jslave_name=infra-slave kill_jslave=true jslave_labels='cockpit-slave infra-slave'"
+ansible-playbook -i /home/test_user/ansible_inventory.txt \
+--private-key=/home/test-user/keys/ci-factory ci-infrastructure/infrastructure/setup_jenkins_slave.yml \
+-u root --extra-vars="jenkins_master_url=http://banshee.bos.redhat.com/ jslave_name=infra-slave kill_jslave=true jslave_labels='cockpit-slave infra-slave'"
 ```
 
 ###### Example 3:
 
 ```
-ansible-playbook -i "10.8.170.204," --private-key=/home/test-user/keys/ci-factory ci-infrastructure/infrastructure/setup_jenkins_slave.yml -u root --extra-vars="rhel_git_repo=<git repo url> jenkins_master_url=http://banshee.bos.redhat.com/ jslave_name=infra-slave jenkins_user=true kill_jslave=true jslave_labels='cockpit-slave infra-slave'"
+ansible-playbook -i "10.8.170.204," --private-key=/home/test-user/keys/ci-factory \
+ci-infrastructure/infrastructure/setup_jenkins_slave.yml -u root \
+--extra-vars="rhel_git_repo=<git repo url> jenkins_master_url=http://banshee.bos.redhat.com/ jslave_name=infra-slave jenkins_user=true kill_jslave=true jslave_labels='cockpit-slave infra-slave'"
 ```
