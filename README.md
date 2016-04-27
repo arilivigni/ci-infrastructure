@@ -10,7 +10,7 @@ Currently we support installing the following for Fedora, Centos, and RHEL:
  - Cockpit test framework
  - Jenkins slave setup (using swarm)
 
-_Note: We only install on RHEL systems if that is the distrubution and an internal repo is provided which contains the repo and var necessary to setup RHEL__
+_Note: We only install on RHEL systems if that is the distrubution and an internal repo is provided which contains the repo and var necessary to setup RHEL_
 
 
 
@@ -27,14 +27,16 @@ This can be a static file, dynamic inventory, or a comma separated list of machi
 
 ### Generic Example
 ```
-ansible -i <inventory> --private-key=</full/path/to/private/ssh/key> ci-infrastructure/infrastructure/setup.yml
+ansible -i <inventory> --private-key=</full/path/to/private/ssh/key> \
+ci-infrastructure/infrastructure/setup.yml
 
 ```
 
 ### Example
 
 ```
-ansible -i "10.8.170.204," --private-key=/home/test-user/.ssh/ci-factory ci-infrastructure/infrastructure/setup.yml
+ansible -i "10.8.170.204," --private-key=/home/test-user/.ssh/ci-factory \
+ci-infrastructure/infrastructure/setup.yml
 
 ```
 
