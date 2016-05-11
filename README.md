@@ -53,7 +53,7 @@ infrastructure/roles/common/defaults/main.yml
 ```
 
 ##### Key options
-    - rhel_git_repo - Internal repo that contains the necessary repo files and variables
+    - rhel_git_repo - Internal repo that contains the necessary repo files and variables for RHEL
     - enable_cockpit - Run the cockpit role and setup the cockpit test framework - ex. enable_cockpit=true
     - enable_jenkins_slave - Run the jenkins_slave role and setup the resource as a Jenkins slave.
                              You need to provide a jenkins_master_url and jslave_name to properly
@@ -81,6 +81,9 @@ infrastructure/roles/jenkins_slave/defaults/main.yml
 |:----------------------:|:---------------------------------------------------------------:|:-----------------------------:|:-----------------------------:|:--------:|
 | **jenkins_master_url** |     Jenkins Master Url                                          | http://banshee.bos.redhat.com |   None                        | Yes      |
 | **jslave_name**        |     Name for your slave                                         | infra-slave                   |   None                        | Yes      |
+| rhel_git_repo          |     Internal repo that contains RHEL files/vars                 | https://some-url              |   None                        | No       |
+| enable_cockpit         |     Run the cockpit role to setup cockpit test framework        | enable_cockpit=true           |   false                        | No       |
+| enable_jenkins_slave   |     Run the Jenins slave role                                   | enable_jenkins_slave=true     |   false                        | No       |
 | jslave_labels          |     Labels for your slave                                       | 'cockpit-slave infra-slave'   |   'cockpit-slave infra-slave' | No       |
 | java_mem               |     Java memory to use for the slave                            | 1024m                         |   2048m                       | No       |
 | jwarm_jar_loc          |     Location where to save the jar file                         | /home/jenkins                 |   /home/jenkins               | No       |
