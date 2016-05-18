@@ -1,6 +1,6 @@
 ---
 - name: Install phantomjs npm package
-  shell: npm -g update phantomjs-prebuilt
+  shell: npm -g install phantomjs-prebuilt
 
 - name: Start and enable libvirtd service
   service: name=libvirtd state=started enabled=yes
