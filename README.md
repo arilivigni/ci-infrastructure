@@ -22,7 +22,7 @@ This can be a static file, dynamic inventory, or a comma separated list of machi
 ### Ansible Inventory
 
 - "10.10.10.1,10.10.10.2,"
-- [ansible inventtory](http://docs.ansible.com/ansible/intro_inventory.html)
+- [ansible inventory](http://docs.ansible.com/ansible/intro_inventory.html)
 - [ansible dynamic inventory](http://docs.ansible.com/ansible/intro_dynamic_inventory.html)
 
 ### Generic Example
