@@ -7,42 +7,52 @@
     jswarm_unique: "-disableClientsUniqueId"
   when: not jswarm_enable_uid
 
+- set_fact:
+    jswarm_full_cmd: "{{ jenkins_user_command_pre }} '{{ jswarm_command }} {{ jswarm_unique }}'"
+  when: jenkins_user
+
+- set_fact:
+    jswarm_full_cmd: "{{ jswarm_command }} {{ jswarm_unique }}"
+  when: not jenkins_user
+
+- set_fact:
+    jenkins_username: jenkins
+  when: jenkins_user
+
+- set_fact:
+    jenkins_username: root
+  when: not jenkins_user
+
+- debug:
+    msg: "Jenkins Slave Props: {{ item.prop }} [ {{ item.value }} ]"
+  with_items:
+    - { prop: 'Jenkins Username', value: "{{ jenkins_username }}" }
+    - { prop: 'Jenkins Full Command', value: "{{ jswarm_full_cmd }}" }
+    - { prop: 'Jswarm unique id', value: "{{ jswarm_unique }}" }
+
+- name: Remove requiretty in /etc/sudoers
+  lineinfile: "dest=/etc/sudoers regexp='Defaults.*requiretty' state=absent"
+
 - name: Get swarm client
   get_url: "url={{ jswarm_url }}/{{ jswarm_ver }}/swarm-client-{{ jswarm_ver }}-jar-with-dependencies.jar dest={{ jswarm_jar_loc }} mode=777"
 
-- name: Clean /etc/rc.local of any previous jenkins slave setup
-  lineinfile: "dest=/etc/rc.local regexp='^su --login jenkins.*|nohup /usr/bin/java.*' state=absent"
+- name: Check if systemd is used
+  stat:
+    path: /usr/bin/systemctl
+  register: systemdcmd
 
-- name: Add swarm to /etc/rc.local for startup as jenkins user
-  lineinfile: "dest=/etc/rc.local line='{{ jenkins_user_command_pre }} \"{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}\"' state=present"
-  when: jenkins_user
+- debug:
+    msg: "systemd is present"
+  when: systemdcmd.stat.exists
 
-- name: Add swarm to /etc/rc.local for startup as root user
-  lineinfile: "dest=/etc/rc.local line='{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}' state=present"
-  when: not jenkins_user
+- debug:
+    msg: "systemd is NOT present"
+  when: not systemdcmd.stat.exists
 
-- name: Check if slave is running and register
-  shell: pgrep -f swarm
-  register: swarm
-  ignore_errors: true
+- include: setup_swarm_systemd.yml
+  when: systemdcmd.stat.exists
 
-- name: Kill jenkins swarm process if kill_jslave defined and process is running
-  shell: kill -9 {{ swarm.stdout }}
-  when: (kill_jslave is defined and swarm.stdout != "")
+- include: setup_swarm_rclocal.yml
+  when: not systemdcmd.stat.exists
 
-- name: Remove Jenkins swarm log file if kill_jslave defined and process is running
-  shell: rm -f /tmp/jslave.log
-  when: (kill_jslave is defined and swarm.stdout != "")
 
-- name: Check if slave is running and register
-  shell: pgrep -f swarm
-  register: swarm
-  ignore_errors: true
-
-- name: Start swarm to connect to master as jenkins user
-  shell: "{{ jenkins_user_command_pre }} '{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}'"
-  when: (jenkins_user and swarm.stdout == "")
-
-- name: Start swarm to connect to master as root user
-  shell: '{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}'
-  when: (not jenkins_user and swarm.stdout == "")

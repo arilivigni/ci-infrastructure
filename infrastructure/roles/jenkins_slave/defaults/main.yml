@@ -11,7 +11,7 @@ jswarm_url: http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-cli
 jswarm_enable_uid: false
 jenkins_user: false
 jenkins_user_command_pre: 'su --login jenkins -c'
-jswarm_command: 'nohup /usr/bin/java -Xmx{{ java_mem }} -jar {{ jswarm_jar_loc }}/swarm-client-{{ jswarm_ver }}-jar-with-dependencies.jar -master {{ jenkins_master_url }} -name {{ jslave_name }} -executors {{ jswarm_execs }} -labels "{{ jslave_labels }}" -fsroot {{ jswarm_home }} -mode exclusive -disableSslVerification'
+jswarm_command: '/usr/bin/nohup /usr/bin/java -Xmx{{ java_mem }} -jar {{ jswarm_jar_loc }}/swarm-client-{{ jswarm_ver }}-jar-with-dependencies.jar -master {{ jenkins_master_url }} -name {{ jslave_name }} -executors {{ jswarm_execs }} -labels "{{ jslave_labels }}" -fsroot {{ jswarm_home }} -mode exclusive -disableSslVerification'
 jswarm_command_sfx: "1>/tmp/jslave.log 2>&1&"
 kill_jslave: false
 

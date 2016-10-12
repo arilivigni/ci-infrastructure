@@ -11,7 +11,7 @@ yum_pkgs:
   - python-futures
   - python-httplib2
   - python-paramiko
-  - python-pbr
+  - python2-pbr
   - python2-mock
   - python-nose
   - python-unittest2
@@ -22,11 +22,16 @@ yum_pkgs:
   - python-glanceclient
   - python-keystoneclient
   - python-neutronclient
+  - python-virtualenv
   - curl
   - gcc
   - ImageMagick-devel
   - krb5-workstation
+  - libffi-devel
+  - libxml2-devel
+  - libxslt-devel
   - nfs-utils
+  - openssl-devel
   - rpcbind
   - gcc
   - git
@@ -36,6 +41,6 @@ yum_pkgs:
   - wget
 
 pip_pkgs:
-  - { name: 'jenkins_job_builder', ver: '1.4.0' }
-  - { name: 'ansible', ver: '1.9.5' }
-  - { name: 'python-foreman', ver: '0.1.2' }
+  - 'jenkins_job_builder == 1.6.1'
+  - 'ansible < 2.0.0'
+  - 'python-foreman == 0.1.2'
