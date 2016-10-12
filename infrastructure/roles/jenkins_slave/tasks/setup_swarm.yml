@@ -31,7 +31,7 @@
     - { prop: 'Jswarm unique id', value: "{{ jswarm_unique }}" }
 
 - name: Remove requiretty in /etc/sudoers
-  lineinfile: "dest=/etc/sudoers regexp='Defaults.*requiretty' state=absent"
+  lineinfile: "dest=/etc/sudoers regexp='Defaults.*requiretty' line='Defaults   !requiretty'"
 
 - name: Get swarm client
   get_url: "url={{ jswarm_url }}/{{ jswarm_ver }}/swarm-client-{{ jswarm_ver }}-jar-with-dependencies.jar dest={{ jswarm_jar_loc }} mode=777"
