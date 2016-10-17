@@ -2,10 +2,10 @@
 # Centos specific repos
 repos:
   - beaker-client-CentOS
-  - centos7
-  - centos7-extras
-  - centos7-updates
-  - centos7-RDO7
+  - CentOS7
+  - CentOS7-extras
+  - CentOS7-updates
+  - CentOS7-RDO7
   - epel7
 
 # Centos specific packages
