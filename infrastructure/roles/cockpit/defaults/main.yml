@@ -17,12 +17,12 @@ cockpit_yum_pkgs:
     - xz
 
 fed_pkgs:
-python2-pbr
+  - python2-pbr
 
 centos_pkgs:
-python-pbr
+  - python-pbr
 
 rhel_pkgs:
-python-pbr
+  - python-pbr
 
 cockpit_repo: https://github.com/cockpit-project/cockpit.git

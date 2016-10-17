@@ -14,3 +14,6 @@
 - include: setup_repos.yml
 
 - include: install_pkgs.yml
+
+- include: remove_rhel_git_repo_files.yml
+  when: (ansible_distribution == 'RedHat' and rhel_git_repo is defined)
