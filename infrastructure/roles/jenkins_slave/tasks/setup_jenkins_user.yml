@@ -1,5 +1,7 @@
 - name: Add Jenkins User
-  user: name=jenkins state=present
+  user:
+    name: jenkins
+    state: present
 
 - name: Set password to jenkins
   shell: echo "jenkins:jenkins" | chpasswd

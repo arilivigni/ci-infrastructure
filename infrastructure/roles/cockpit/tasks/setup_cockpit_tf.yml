@@ -7,4 +7,7 @@
   when: not phantomjs.stat.exists
 
 - name: Start and enable libvirtd service
-  service: name=libvirtd state=started enabled=yes
+  service:
+    name: libvirtd
+    state: started
+    enabled: yes
