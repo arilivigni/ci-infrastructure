@@ -16,13 +16,4 @@ cockpit_yum_pkgs:
     - curl
     - xz
 
-fed_pkgs:
-  - python2-pbr
-
-centos_pkgs:
-  - python-pbr
-
-rhel_pkgs:
-  - python-pbr
-
 cockpit_repo: https://github.com/cockpit-project/cockpit.git
