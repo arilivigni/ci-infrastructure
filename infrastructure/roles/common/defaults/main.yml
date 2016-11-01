@@ -68,6 +68,5 @@ rhel_pkgs:
 
 pip_pkgs:
   - 'jenkins_job_builder == 1.6.1'
-  - 'ansible < 2.0.0'
   - 'python-foreman == 0.1.2'
   - 'taskrunner == 0.2.1'
