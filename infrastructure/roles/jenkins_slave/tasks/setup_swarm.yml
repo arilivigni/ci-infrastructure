@@ -9,19 +9,19 @@
 
 - set_fact:
     jswarm_full_cmd: "{{ jenkins_user_command_pre }} '{{ jswarm_command }} {{ jswarm_unique }}'"
-  when: jenkins_user
+  when: enable_jenkins_user
 
 - set_fact:
     jswarm_full_cmd: "{{ jswarm_command }} {{ jswarm_unique }}"
-  when: not jenkins_user
+  when: not enable_jenkins_user
 
 - set_fact:
     jenkins_username: jenkins
-  when: jenkins_user
+  when: enable_jenkins_user
 
 - set_fact:
     jenkins_username: root
-  when: not jenkins_user
+  when: not enable_jenkins_user
 
 - debug:
     msg: "Jenkins Slave Props: {{ item.prop }} [ {{ item.value }} ]"

@@ -1,5 +1,63 @@
 ---
-# Defaults for global vars for fed_pkgs, centos_pkgs, and rhel_pkgs
+# common/defaults/main.yml
+ci_infra_git_repo: https://github.com/arilivigni/ci-infrastructure.git
+
+repos:
+ - epel7
+
+yum_pkgs:
+  - ansible
+  - curl
+  - dnf
+  - fedpkg
+  - expect
+  - gcc
+  - git
+  - ImageMagick-devel
+  - krb5-workstation
+  - krb5-workstation
+  - libffi-devel
+  - libguestfs-tools
+  - libselinux-python
+  - libvirt-client
+  - libvirt-python
+  - libxml2-devel
+  - libxslt-devel
+  - mlocate
+  - nfs-utils
+  - npm
+  - openssl
+  - openssl-devel
+  - pylint
+  - python
+  - python2-boto
+  - python2-crypto
+  - python2-mock
+  - python-click
+  - python-devel
+  - python-flake8
+  - python-futures
+  - python-glanceclient
+  - python-httplib2
+  - python-keystoneclient
+  - python-libguestfs
+  - python-netaddr
+  - python-neutronclient
+  - python-nose
+  - python-novaclient
+  - python-paramiko
+  - python-pbr
+  - python-pip
+  - python-requests
+  - python-unittest2
+  - python-virtualenv
+  - qemu
+  - qemu-kvm
+  - rpcbind
+  - rsync
+  - ruby
+  - wget
+  - xz
 
 fed_pkgs:
   - python2-pbr
@@ -9,3 +67,49 @@ centos_pkgs:
 
 rhel_pkgs:
   - python-pbr
+
+pip_pkgs:
+  - 'jenkins_job_builder == 1.6.1'
+  - 'python-foreman == 0.1.2'
+  - 'taskrunner == 0.2.1'
+
+# Cockpit packages
+cockpit_yum_pkgs:
+    - npm
+    - python-libguestfs
+    - qemu
+    - qemu-kvm
+    - python
+    - libvirt-client
+    - openssl
+    - libguestfs-tools
+    - krb5-workstation
+    - expect
+    - rsync
+    - libvirt-python
+    - curl
+    - xz
+
+cockpit_repo: https://github.com/cockpit-project/cockpit.git
+
+# Setup for Jenkins slave and Jenkins Swarm plugin
+jslave_labels: 'infrastructure-slave infra-slave'
+java_mem: 2048m
+jswarm_jar_loc: /home/jenkins
+jswarm_ver: 2.2
+jswarm_execs: 10
+jswarm_home: /home/jenkins
+jswarm_url: http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client
+jswarm_enable_uid: false
+enable_jenkins_user: false
+jenkins_user_command_pre: 'su --login jenkins -c'
+jswarm_command: '/usr/bin/nohup /usr/bin/java -Xmx{{ java_mem }} -jar {{ jswarm_jar_loc }}/swarm-client-{{ jswarm_ver }}-jar-with-dependencies.jar -master {{ jenkins_master_url }} -name {{ jslave_name }} -executors {{ jswarm_execs }} -labels "{{ jslave_labels }}" -fsroot {{ jswarm_home }} -mode exclusive -disableSslVerification -username {{ juser }} -password {{ jpass }}'
+jswarm_command_sfx: "1>/tmp/jslave.log 2>&1&"
+kill_jslave: false
+
+jslave_yum_pkgs:
+  - java
+  - nss
+juser: ''
+
+jpass: ''

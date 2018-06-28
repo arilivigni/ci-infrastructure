@@ -3,11 +3,11 @@
 
 - set_fact:
     jswarm_rclocal_cmd: '{{ jenkins_user_command_pre }} \"{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}\"'
-  when: jenkins_user
+  when: enable_jenkins_user
 
 - set_fact:
     jswarm_rclocal_cmd: '{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}'
-  when: not jenkins_user
+  when: not enable_jenkins_user
 
 - name: Clean /etc/rc.local of any previous jenkins slave setup
   lineinfile: "dest=/etc/rc.local regexp='^su --login jenkins.*|nohup /usr/bin/java.*' state=absent"
@@ -37,8 +37,8 @@
 
 - name: Start swarm to connect to master as jenkins user
   shell: "{{ jenkins_user_command_pre }} '{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}'"
-  when: (jenkins_user and swarm.stdout == "")
+  when: (enable_jenkins_user and swarm.stdout == "")
 
 - name: Start swarm to connect to master as root user
   shell: '{{ jswarm_command }} {{ jswarm_unique }} {{ jswarm_command_sfx }}'
-  when: (not jenkins_user and swarm.stdout == "")
+  when: (not enable_jenkins_user and swarm.stdout == "")

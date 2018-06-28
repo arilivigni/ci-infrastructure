@@ -91,7 +91,9 @@ infrastructure/roles/jenkins_slave/defaults/main.yml
 | jswarm_execs           |     Number of executors for the slave                           | 5                             |   10                          | No       |
 | jswarm_home            |     home directory for Jenkins jobs                             | /home/jenkins                 |   /home/jenkins               | No       |
 | jswarm_enable_uid      |     Add a unique ID to end of the slave name                    | true                          |   false                       | No       |
-| jenkins_user           |     Setup slave as the Jenkins user and not root                | true                          |   false                       | No       |
+| enable_jenkins_user    |     Setup slave as the Jenkins user and not root                | true                          |   false                       | No       |
+| juser                  |     Username to supply to setup the Jenkins slave               | test-user                     |   None ""                     | Yes      |
+| jpass                  |     Password to supply to setup the Jenkins slave               | changeme                      |   None ""                     | Yes      |
 | kill_jslave            |     Kill a previous Jenkins slave instance if it is running     | true                          |   false                       | No       |
 
 
@@ -105,13 +107,13 @@ ansible-playbook -i /home/test_user/ansible_inventory.txt \
 -u root --extra-vars="enable_cockpit=true"
 ```
 
-
 ###### Example 2:
 
 ```
 ansible-playbook -i /home/test_user/ansible_inventory.txt \
 --private-key=/home/test-user/keys/ci-factory ci-infrastructure/infrastructure/setup_jenkins_slave.yml \
--u root --extra-vars="jenkins_master_url=http://banshee.bos.redhat.com/ jslave_name=infra-slave kill_jslave=true jslave_labels='cockpit-slave infra-slave'"
+-u root --extra-vars="jenkins_master_url=http://banshee.bos.redhat.com/ jslave_name=infra-slave kill_jslave=true jslave_labels='cockpit-slave infra-slave'
+juser=test-user -jpass=changeme"
 ```
 
 ###### Example 3:
@@ -119,5 +121,6 @@ ansible-playbook -i /home/test_user/ansible_inventory.txt \
 ```
 ansible-playbook -i "10.8.170.204," --private-key=/home/test-user/keys/ci-factory \
 ci-infrastructure/infrastructure/setup_jenkins_slave.yml -u root \
---extra-vars="rhel_git_repo=<git repo url> jenkins_master_url=http://banshee.bos.redhat.com/ jslave_name=infra-slave jenkins_user=true kill_jslave=true jslave_labels='cockpit-slave infra-slave'"
+--extra-vars="rhel_git_repo=<git repo url> jenkins_master_url=http://banshee.bos.redhat.com/ jslave_name=infra-slave jenkins_user=true kill_jslave=true jslave_labels='cockpit-slave infra-slave'
+juser=test-user -jpass=changeme"
 ```
